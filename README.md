@@ -10,7 +10,7 @@ A Python-based restaurant management application developed for the First Semeste
 
 | Student Name | University Roll No. | Class Roll No. | Role | Phase 1 & Phase 2 Contribution |
 | :--- | :--- | :--- | :--- | :--- |
-| **Ayushmaan Singh** | 26021974 | 22 | **Team Lead & Lead Developer** | System Architecture, Complete Python Implementation (Modules 1–3), Synopsis Documentation, & GitHub Repository Management |
+| **Ayushmaan Singh** | 26021974 | 22 | **Team Lead & Lead Developer** | System Architecture, Complete Python Implementation , Synopsis Documentation, & GitHub Repository Management , Testing , Data Entry , Presentation |
 | Amartya Kushwaha | 26021234 | 10 | Team Member |  Observation |
 | Aayush Goel | 26021507 | 7 | Team Member |  Observation |
 | Aahvan Tripathi | 260211828 | 3 | Team Member |  Observation |
