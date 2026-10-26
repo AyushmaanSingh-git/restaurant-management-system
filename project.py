@@ -13,7 +13,7 @@ class MainCourse(FoodItem):
     def __init__(self, item_id, name,price):
         super().__init__(item_id , name ,price ,"Main Course")
 
-    def calculate_price(self_,qty):
+    def calculate_price(self,qty):
         return (self.price *qty) * 1.05
 
 class Beverage(FoodItem):
