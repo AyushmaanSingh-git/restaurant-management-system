@@ -27,9 +27,9 @@ A Python-based restaurant management application developed for the First Semeste
 ### Phase 2: Core Engine – 50% Implementation (Completed)
 - [x] **Module 1 – Menu Management:** Created `FoodItem` base class and derived `MainCourse`, `Beverage`, and `Dessert` subclasses using inheritance, polymorphism (`calculate_price()`), dictionaries, sets, and tuples.
 - [x] **Module 2 – Order and Billing:** Built interactive order processing using lists, billing dictionaries, and exception handling (`try-except-raise`) for unavailable items and invalid quantities.
-- [x] **Module 3 – File Management (Part 1):** Implemented permanent bill storage into `orders.txt` using Python file handling.
 
 ### Phase 3: Analytics & Visualization – Final 50% (Upcoming)
+- [ ] **Module 3 – File Management (Part 1):** Implemented permanent bill storage into `orders.txt` using Python file handling.
 - [ ] **Module 3 – File Management (Part 2):** Read existing menu and order data automatically when the application starts.
 - [ ] **Module 4 – Sales Analysis:** Analyze stored order data to identify popular food items, category-wise sales, and daily/monthly revenue.
 - [ ] **Module 5 – Visualization:** Generate Matplotlib charts for most popular food items, category-wise sales, and daily/monthly revenue trends.
