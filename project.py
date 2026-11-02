@@ -9,6 +9,7 @@ class FoodItem:
     def calculate_price(self,qty):
         return self.price * qty
 
+
 class MainCourse(FoodItem):
     def __init__(self, item_id, name,price):
         super().__init__(item_id , name ,price ,"Main Course")
@@ -70,10 +71,10 @@ def take_order():
             order_list.append((item_name ,qty))
             print(f"Added: {qty} x {item_name}")
 
-        except KeyError as e:
-            print(f"Item Error: {e}")
-        except ValueError as e:
-            print(f"Quantity Error: {e}")
+        except KeyError as error:
+            print(f"Item Error: {error}")
+        except ValueError as error:
+            print(f"Quantity Error: {error}")
 
     return order_list
 
@@ -110,6 +111,7 @@ def generate_bill(order_list):
     print("Note: Main Course has 5% GST, Beverage has Rs. 10 cooling charge per item.")
 
     return bill_details, grand_total
+
 
 while True:
     print("\n---WELCOME TO THE RESTAURANT---")
