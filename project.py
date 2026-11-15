@@ -10,13 +10,39 @@ class FoodItem:
         return self.price * qty
 
 
-class MainCourse(FoodItem):
+class Indian(FoodItem):
     def __init__(self, item_id, name,price):
-        super().__init__(item_id , name ,price ,"Main Course")
+        super().__init__(item_id , name ,price ,"Indian")
+
+    def calculate_price(self,qty):
+            return (self.price *qty) * 1.05
+
+class Chinese(FoodItem):
+    def __init__(self, item_id, name,price):
+        super().__init__(item_id , name ,price ,"Chinese")
+
+    def calculate_price(self,qty):
+            return (self.price *qty) * 1.05
+
+class Continental(FoodItem):
+    def __init__(self, item_id, name,price):
+        super().__init__(item_id , name ,price ,"Continental")
 
     def calculate_price(self,qty):
         return (self.price *qty) * 1.05
 
+class ComboMeal(FoodItem):
+    def __init__(self, item_id, name,price):
+        super().__init__(item_id , name ,price ,"Combo Meal")
+
+    def calculate_price(self,qty):
+        return (self.price *qty) * 1.05
+
+
+class Breads(FoodItem):
+    def __init__(self, item_id, name,price):
+        super().__init__(item_id , name ,price ,"Breads")
+    
 class Beverage(FoodItem):
     def __init__(self, item_id,name,price):
         super().__init__(item_id,name ,price, "Beverage")
@@ -29,16 +55,45 @@ class Dessert(FoodItem):
         super().__init__(item_id, name, price , "Dessert")
 
 
-categories = {"Main Course", "Beverage", "Dessert"}
+categories = {"Indian", "Chinese", "Continental", "Breads","Combo Meal" , "Beverage", "Dessert"}
 menu = {
-    "Butter Paneer": MainCourse(101, "Butter Paneer", 250),
-    "Butter Chicken" : MainCourse(102 , "Butter Chicken" , 350),
-    "Garlic Naan" : MainCourse(103 ,"Garlic Naan",70),
-    "Coke" : Beverage(201 ,"Coke", 70),
-    "Coffee" : Beverage(202 , "Coffee" , 100),
-    "Tea" : Beverage(203, "Tea" , 50),
-    "Brownie" : Dessert(301 , "Brownie", 120),
-    "Gulab Jamun" : Dessert(302 , "Gulab Jamun" ,50)
+    "Butter Chicken": Indian(101, "Butter Chicken", 350),
+    "Butter Paneer": Indian(102, "Butter Paneer", 260),
+    "Kadhai Paneer": Indian(103, "Kadhai Paneer", 250),
+    "Dal Makhani": Indian(104, "Dal Makhani", 220),
+    "Chicken Tikka Masala": Indian(105, "Chicken Tikka Masala", 360),
+    "Hyderabadi Biryani": Indian(106, "Hyderabadi Biryani", 280),
+    
+    "Veg Hakka Noodles": Chinese(201, "Veg Hakka Noodles", 180),
+    "Chicken Hakka Noodles": Chinese(202, "Chicken Hakka Noodles", 220),
+    "Veg Manchurian": Chinese(203, "Veg Manchurian", 190),
+    "Chilli Chicken": Chinese(204, "Chilli Chicken", 260),
+    "Chilli Paneer": Chinese(205, "Chilli Paneer", 230),
+    "Spring Rolls": Chinese(206, "Spring Rolls", 150),
+
+    "White Sauce Pasta": Continental(301, "White Sauce Pasta", 240),
+    "Red Sauce Pasta": Continental(302, "Red Sauce Pasta", 220),
+    "Margherita Pizza": Continental(303, "Margherita Pizza", 280),
+    "Farmhouse Pizza": Continental(304, "Farmhouse Pizza", 340),
+    "Grilled Chicken Burger": Continental(305, "Grilled Chicken Burger", 190),
+
+    "Tandoori Roti": Breads(401, "Tandoori Roti", 25),
+    "Butter Naan": Breads(402, "Butter Naan", 50),
+    "Garlic Naan": Breads(403, "Garlic Naan", 70),
+    "Lachha Paratha": Breads(404, "Lachha Paratha", 60),
+
+    "Coke": Beverage(501, "Coke", 60),
+    "Cold Coffee": Beverage(502, "Cold Coffee", 120),
+    "Fresh Lime Soda": Beverage(503, "Fresh Lime Soda", 80),
+    "Masala Chai": Beverage(504, "Masala Chai", 40),
+
+    "Chocolate Brownie": Dessert(601, "Chocolate Brownie", 130),
+    "Gulab Jamun": Dessert(602, "Gulab Jamun", 60),
+    "Rasmalai": Dessert(603, "Rasmalai", 90),
+
+    "North Indian Thali": ComboMeal(701, "North Indian Thali", 320),
+    "Chinese Feast Combo": ComboMeal(702, "Chinese Feast Combo", 290),
+    "Student Burger Meal": ComboMeal(703, "Student Burger Meal", 240)
 }
 
 def show_menu():
@@ -54,12 +109,19 @@ def take_order():
     order_list = []
     show_menu()
 
-    while True :
+    while True:
         try:
-            item_name= input("\nEnter food item name or done to finish): ").strip().title()
+            item_name = input("\nEnter food item name or ID (or 'done' to finish): ").strip().title()
 
             if item_name.lower() == "done":
                 break
+
+            if item_name.isdigit():
+                search_id = int(item_name)
+                for name, item in menu.items():
+                    if item.info[0] == search_id:
+                        item_name = name
+                        break
 
             if item_name not in menu:
                 raise KeyError(f"'{item_name}' is not available on the menu.")
@@ -68,7 +130,7 @@ def take_order():
             if qty <= 0:
                 raise ValueError("Quantity must be at least 1.")
 
-            order_list.append((item_name ,qty))
+            order_list.append((item_name, qty))
             print(f"Added: {qty} x {item_name}")
 
         except KeyError as error:
@@ -81,10 +143,10 @@ def take_order():
 def generate_bill(order_list):
     if not order_list:
         print("\nNo items ordered.")
-        return None,0
+        return None, 0
 
-    bill_details ={}
-    grand_total =0.0
+    bill_details = {}
+    grand_total = 0.0
 
     for item_name, qty in order_list:
         food_obj = menu[item_name]
@@ -92,25 +154,40 @@ def generate_bill(order_list):
 
         if item_name in bill_details:
             bill_details[item_name]["qty"] += qty
-            bill_details[item_name]["cost"] += cost 
-
-    
+            bill_details[item_name]["cost"] += cost
         else:
             bill_details[item_name] = {
-                "category" : food_obj.category,
-                "qty" :qty ,
-                "cost" : cost
+                "category": food_obj.category,
+                "qty": qty,
+                "cost": cost
             }
         grand_total += cost
+
+    discount = 0.0
+    coupon = input("\nEnter coupon code (or press Enter to skip): ").strip().upper()
+    if coupon == "GEU20":
+        student_id = input("Enter your University Student ID: ").strip()
+        if student_id.isdigit() and len(student_id) >= 5:
+            discount = grand_total * 0.20
+            grand_total -= discount
+            print(f"Student ID verified! 20% discount (Rs. {round(discount, 2)}) applied.")
+        else:
+            print("Invalid Student ID! Discount not applied.")
+    elif coupon != "":
+        print("Invalid coupon code! Discount not applied.")
 
     print("\n     --- CUSTOMER BILL ---")
     for name, data in bill_details.items():
         print(f"{name} (x{data['qty']}) - {data['category']} : Rs. {round(data['cost'], 2)}")
-            
+
+    if discount > 0:
+        print("Student Discount (GEU20 - 20% Off): - Rs.", round(discount, 2))
+
     print("Grand Total: Rs.", round(grand_total, 2))
-    print("Note: Main Course has 5% GST, Beverage has Rs. 10 cooling charge per item.")
+    print("Note: Indian/Chinese/Continental/Combos have 5% GST, Beverage has Rs. 10 cooling charge.")
 
     return bill_details, grand_total
+
 
 
 while True:
@@ -131,3 +208,6 @@ while True:
         break
     else:
         print("Invalid choice. Please enter 1, 2, or 3.")
+
+#phase 3 :
+
